@@ -36,6 +36,8 @@ class QueuedPost < ActiveRecord::Base
     opts = {raw: raw}
     post_attributes.each {|a| opts[a] = post_options[a.to_s] }
 
+    opts[:cooking_options].symbolize_keys! if opts[:cooking_options]
+
     opts[:topic_id] = topic_id if topic_id
     opts
   end

@@ -1,6 +1,6 @@
 class CreateQueuedPosts < ActiveRecord::Migration
   def change
-    create_table :queued_posts do |t|
+    create_table :queued_posts, force: true do |t|
       t.string     :queue, null: false
       t.integer    :state, null: false
       t.integer    :user_id, null: false
@@ -15,6 +15,6 @@ class CreateQueuedPosts < ActiveRecord::Migration
     end
 
     add_index :queued_posts, [:queue, :state, :created_at], name: 'by_queue_status'
-    add_index :queued_posts, [:topic, :queue, :state, :created_at], name: 'by_queue_status_topic'
+    add_index :queued_posts, [:topic_id, :queue, :state, :created_at], name: 'by_queue_status_topic'
   end
 end
